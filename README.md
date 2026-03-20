@@ -225,15 +225,15 @@ StarRating('your-selector', {
 
 Code example
 
-#### [demo/index.html/](https://github.com/avego/star-rating-svg/blob/master/demo/index.html "code examples")
+#### [demo/index.html/](https://github.com/avego/star-rating-svg/blob/main/demo/index.html "code examples")
 
 Source file
 
-#### [src/](https://github.com/avego/star-rating-svg/tree/master/src "source file")
+#### [src/](https://github.com/avego/star-rating-svg/tree/main/src "source file")
 
 Minified version
 
-#### [dist/](https://github.com/avego/star-rating-svg/tree/master/dist "build files")
+#### [dist/](https://github.com/avego/star-rating-svg/tree/main/dist "build files")
 
 ### Changelog
 

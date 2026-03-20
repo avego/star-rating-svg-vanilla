@@ -38,6 +38,7 @@ iframe {
 
 .content {
     width: 640px;
+    margin: auto;
 }
 
 .live-rating {
