@@ -89,6 +89,7 @@ For a working **demo**, open `demo/index.html` from the repository or see:
 | baseUrl | false | when enabled (true), enables compatibility with the base tag in your head section |
 | forceRoundUp | false | if true, forces rounding the initial rating to the nearest upper half even if the value is closer to the lower (1.1 -> 1.5 rather than 1.1 -> 1.0) |
 | valueMultiplier | 1 | Scale the rating range: public value = internal value × valueMultiplier. Use 2 for 5 stars → 0..10 (half-star = step 1) |
+| ratingLabels | null | Array of tooltip strings for each rating value (native title on hover). Index 0 = rating 1, index 1 = rating 2, etc. If not set, no tooltips are shown. |
 
 ## Rating scale: 5 stars → 0..10
 
@@ -109,6 +110,23 @@ StarRating(".my-rating", {
 ```
 
 Note: With `useFullStars: true`, half-stars are disabled; with `valueMultiplier: 2` you get only even values (2, 4, 6, 8, 10).
+
+## Rating labels (tooltips)
+
+Native browser tooltips on hover per half-star. Pass an array of strings (index 0 = rating 1, etc.):
+
+```javascript
+StarRating(".my-rating", {
+  totalStars: 5,
+  valueMultiplier: 2,
+  ratingLabels: [
+    'Very bad', 'Bad', 'Not so bad', 'Normal', 'Average',
+    'Almost good', 'Good', 'Very good', 'Excellent', 'Perfect'
+  ]
+});
+```
+
+If `ratingLabels` is not set or empty, no tooltips are shown.
 
 ## Initialization via data attributes
 
@@ -236,6 +254,10 @@ Minified version
 #### [dist/](https://github.com/avego/star-rating-svg-vanilla/tree/main/dist "build files")
 
 ### Changelog
+
+#### 2.3.0
+- Add `ratingLabels` option: native tooltips on hover for each half-star (uses SVG `<title>` element)
+- Works with `valueMultiplier` (e.g. labels for 1..10 scale) and `useFullStars`
 
 #### 2.2.0
 - Add data attributes initialization: totalStars, valueMultiplier, initialRating, disableAfterRate, readOnly, and more

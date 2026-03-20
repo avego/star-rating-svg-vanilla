@@ -1,6 +1,6 @@
 {
   "name": "star-rating-svg-vanilla",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A star rating plugin based on svg (native JavaScript)",
   "keywords": [
     "star",

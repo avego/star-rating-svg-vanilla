@@ -14,7 +14,7 @@
 </div>
 <h4>star-rating-svg.js</h4>
 <p class="info-sub">Native JavaScript, no dependencies. Data attributes init, rating scale (e.g. 0..10).</p>
-<div class="info"><a href="https://github.com/avego/star-rating-svg-vanilla/">Github</a>&nbsp;/&nbsp;v.2.2.0
+<div class="info"><a href="https://github.com/avego/star-rating-svg-vanilla/">Github</a>&nbsp;/&nbsp;v.2.3.0
 <iframe src="https://ghbtns.com/github-btn.html?user=avego&repo=star-rating-svg&type=star&count=true&size=medium" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
 </div>
 
@@ -237,6 +237,27 @@ StarRating(".my-rating-11", {
 
 <hr>
 
+<h4>Rating labels (tooltips on hover)</h4>
+
+<p>Native title tooltips for each half-star. Hover to see labels for 1..10.</p>
+
+<span class="my-rating-labels"></span>
+
+<pre class="pre-show prettyprint">
+StarRating(".my-rating-labels", {
+  totalStars: 5,
+  valueMultiplier: 2,
+  initialRating: 7,
+  disableAfterRate: false,
+  ratingLabels: [
+    'Very bad', 'Bad', 'Not so bad', 'Normal', 'Average',
+    'Almost good', 'Good', 'Very good', 'Excellent', 'Perfect'
+  ]
+});
+</pre>
+
+<hr>
+
 <h4>Data attributes: only markup</h4>
 <p>All options from data attributes, no JS options.</p>
 <span class="demo-data-only" data-total-stars="5" data-value-multiplier="2" data-initial-rating="7" data-disable-after-rate="false" data-star-size="35"></span>
@@ -431,6 +452,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   document.querySelector('.live-rating-scale').textContent = rating11.getRating();
+
+  StarRating(".my-rating-labels", {
+    totalStars: 5,
+    valueMultiplier: 2,
+    initialRating: 7,
+    disableAfterRate: false,
+    ratingLabels: [
+      'Very bad', 'Bad', 'Not so bad', 'Normal', 'Average',
+      'Almost good', 'Good', 'Very good', 'Excellent', 'Perfect'
+    ]
+  });
 
   StarRating(".demo-data-only");
 

@@ -37,6 +37,7 @@
     initialRating: 0,
     starSize: 40,
     valueMultiplier: 1,
+    ratingLabels: null,
     callback: noop,
     onHover: noop,
     onLeave: noop
@@ -133,6 +134,7 @@
     this.stars = Array.from(this.element.querySelectorAll('.jq-star'));
     this.addListeners();
     this.initRating();
+    this.setPolygonTitles();
   };
 
   StarRatingPlugin.prototype.addListeners = function () {
@@ -229,6 +231,45 @@
 
   StarRatingPlugin.prototype.initRating = function () {
     this.paintStars(this._state.rating - 1, 'active');
+  };
+
+  StarRatingPlugin.prototype.setPolygonTitle = function (polygon, label) {
+    if (!polygon || label == null) return;
+    polygon.removeAttribute('title');
+    var existing = polygon.querySelector('title');
+    if (existing) polygon.removeChild(existing);
+    var titleEl = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    titleEl.textContent = label;
+    polygon.appendChild(titleEl);
+  };
+
+  StarRatingPlugin.prototype.setPolygonTitles = function () {
+    var labels = this.settings.ratingLabels;
+    if (!labels || !Array.isArray(labels) || labels.length === 0) return;
+
+    var mult = this.settings.valueMultiplier;
+    var useFull = this.settings.useFullStars;
+
+    this.stars.forEach(function (star, starIndex) {
+      var polygonLeft = star.querySelector('[data-side="left"]');
+      var polygonRight = star.querySelector('[data-side="right"]');
+
+      if (useFull) {
+        var fullRating = (starIndex + 1) * mult;
+        var label = labels[fullRating - 1];
+        if (label != null) {
+          this.setPolygonTitle(polygonLeft, label);
+          this.setPolygonTitle(polygonRight, label);
+        }
+      } else {
+        var leftRating = (starIndex + 0.5) * mult;
+        var rightRating = (starIndex + 1) * mult;
+        var leftLabel = labels[Math.round(leftRating) - 1];
+        var rightLabel = labels[Math.round(rightRating) - 1];
+        this.setPolygonTitle(polygonLeft, leftLabel);
+        this.setPolygonTitle(polygonRight, rightLabel);
+      }
+    }, this);
   };
 
   StarRatingPlugin.prototype.paintStars = function (endIndex, stateClass) {
