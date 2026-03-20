@@ -22,6 +22,7 @@
   Change star shape (rounded or straight)
 * Resize stars
 * **Change rated star colors by level**
+* **Scale rating range** (e.g. 5 stars → 0..10 via valueMultiplier)
 
 ## demo
 
@@ -86,14 +87,35 @@ For a working **demo**, open `demo/index.html` from the repository or see:
 | starShape | 'straight' or 'rounded' | Change the star shape type |
 | baseUrl | false | when enabled (true), enables compatibility with the base tag in your head section |
 | forceRoundUp | false | if true, forces rounding the initial rating to the nearest upper half even if the value is closer to the lower (1.1 -> 1.5 rather than 1.1 -> 1.0) |
+| valueMultiplier | 1 | Scale the rating range: public value = internal value × valueMultiplier. Use 2 for 5 stars → 0..10 (half-star = step 1) |
+
+## Rating scale: 5 stars → 0..10
+
+To show 5 stars but work with a rating range 0..10 (half-star = step 1):
+
+```javascript
+StarRating(".my-rating", {
+  totalStars: 5,
+  valueMultiplier: 2,
+  initialRating: 7,
+  callback: function(currentRating, el){
+    // currentRating is 0..10
+    console.log('Rated:', currentRating);
+  }
+});
+// getRating() returns 0..10
+// setRating(7) sets rating to 7 (out of 10)
+```
+
+Note: With `useFullStars: true`, half-stars are disabled; with `valueMultiplier: 2` you get only even values (2, 4, 6, 8, 10).
 
 ## Methods
 
 | method | arguments | description  |
 |---|---|---|
 | unload    |  &nbsp; | Destroys the instance and removes events attached to it |
-| setRating | 0 to max stars (int), round (Boolean) | Manually sets the rating  |
-| getRating | &nbsp; | Gets the current rating from instance |
+| setRating | value (0 to max), round (Boolean) | Manually sets the rating (public value when valueMultiplier is used) |
+| getRating | &nbsp; | Gets the current rating (public value when valueMultiplier is used) |
 | resize | 1 to 200 | Resize the stars on the fly |
 | setReadOnly | Boolean | Disable or enable stars manually |
 
@@ -166,6 +188,10 @@ Minified version
 #### [dist/](https://github.com/avego/star-rating-svg/tree/master/dist "build files")
 
 ### Changelog
+
+#### 2.1.0
+- Add `valueMultiplier` option: scale rating range (e.g. 5 stars → 0..10, half-star = step 1)
+- `initialRating`, `data-rating`, `getRating`, `setRating`, `callback`, `onHover`, `onLeave` use public values when valueMultiplier is set
 
 #### 2.0.0
 - Rewritten in native JavaScript (no jQuery dependency)

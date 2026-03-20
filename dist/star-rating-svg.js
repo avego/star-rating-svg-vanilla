@@ -36,6 +36,7 @@
     strokeColor: 'black',
     initialRating: 0,
     starSize: 40,
+    valueMultiplier: 1,
     callback: noop,
     onHover: noop,
     onLeave: noop
@@ -52,9 +53,13 @@
     this.settings = Object.assign({}, defaults, options);
 
     _rating = element.getAttribute('data-rating') || element.dataset.rating || this.settings.initialRating;
+    _rating = parseFloat(_rating) || 0;
+
+    var mult = this.settings.valueMultiplier;
+    var internalRating = (mult !== 1) ? (_rating / mult) : _rating;
 
     roundFn = this.settings.forceRoundUp ? Math.ceil : Math.round;
-    newRating = (roundFn(_rating * 2) / 2).toFixed(1);
+    newRating = (roundFn(internalRating * 2) / 2).toFixed(1);
     this._state = {
       rating: parseFloat(newRating)
     };
@@ -105,7 +110,10 @@
   StarRatingPlugin.prototype.hoverRating = function (e) {
     var index = this.getIndex(e);
     this.paintStars(index, 'hovered');
-    this.settings.onHover(index + 1, this._state.rating, this.element);
+    var mult = this.settings.valueMultiplier;
+    var publicIndex = (index + 1) * mult;
+    var publicRating = this._state.rating * mult;
+    this.settings.onHover(publicIndex, publicRating, this.element);
   };
 
   StarRatingPlugin.prototype.handleRating = function (e) {
@@ -132,7 +140,10 @@
     var rating = this._state.rating || -1;
     var colorType = this._state.rated ? 'rated' : 'active';
     this.paintStars(rating - 1, colorType);
-    this.settings.onLeave(index + 1, this._state.rating, this.element);
+    var mult = this.settings.valueMultiplier;
+    var publicIndex = (index + 1) * mult;
+    var publicRating = this._state.rating * mult;
+    this.settings.onLeave(publicIndex, publicRating, this.element);
   };
 
   StarRatingPlugin.prototype.getIndex = function (e) {
@@ -152,7 +163,11 @@
     var offsetX = e.clientX - rect.left;
     index = (index < 0.5 && (offsetX < width / 4)) ? -1 : index;
 
-    index = (minRating && minRating <= this.settings.totalStars && index < minRating) ? minRating - 1 : index;
+    var mult = this.settings.valueMultiplier;
+    var internalMin = minRating != null ? (minRating / mult) : null;
+    var publicMax = this.settings.totalStars * mult;
+    var minOk = internalMin != null && minRating <= publicMax && index < internalMin;
+    index = minOk ? (internalMin - 1) : index;
     return index;
   };
 
@@ -252,7 +267,8 @@
   };
 
   StarRatingPlugin.prototype.executeCallback = function (rating) {
-    this.settings.callback(rating, this.element);
+    var publicRating = rating * this.settings.valueMultiplier;
+    this.settings.callback(publicRating, this.element);
   };
 
   StarRatingPlugin.prototype.unload = function () {
@@ -264,15 +280,18 @@
   };
 
   StarRatingPlugin.prototype.setRating = function (rating, round) {
-    if (rating > this.settings.totalStars || rating < 0) return;
+    var mult = this.settings.valueMultiplier;
+    var publicMax = this.settings.totalStars * mult;
+    if (rating > publicMax || rating < 0) return;
     if (round) {
       rating = Math.round(rating);
     }
-    this.applyRating(rating);
+    var internalRating = (mult !== 1) ? (rating / mult) : rating;
+    this.applyRating(internalRating);
   };
 
   StarRatingPlugin.prototype.getRating = function () {
-    return this._state.rating;
+    return this._state.rating * this.settings.valueMultiplier;
   };
 
   StarRatingPlugin.prototype.resize = function (newSize) {

@@ -13,7 +13,7 @@
 	<img src="img/star-rating-svg-logo.png" alt="star-rating-svg-logo" />
 </div>
 <h4>star-rating-svg.js</h4>
-<div class="info"><a href="https://github.com/avego/star-rating-svg/">Github</a>&nbsp;/&nbsp;v.2.0.0
+<div class="info"><a href="https://github.com/avego/star-rating-svg/">Github</a>&nbsp;/&nbsp;v.2.1.0
 <iframe src="https://ghbtns.com/github-btn.html?user=nashio&repo=star-rating-svg&type=star&count=true&size=medium" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
 </div>
 
@@ -207,6 +207,35 @@ StarRating(".my-rating-10", {
 
 <hr>
 
+<h4>5 stars, rating 0..10 (valueMultiplier)</h4>
+
+<p>5 stars displayed, but rating range 0..10 — half-star = step 1.</p>
+
+<span class="my-rating-11"></span>
+<span class="live-rating live-rating-scale"></span>
+
+<pre class="pre-show prettyprint">
+&lt;span class="my-rating-11"&gt;&lt;/span&gt;
+&lt;span class="live-rating-scale"&gt;&lt;/span&gt;
+</pre>
+
+<pre class="pre-show prettyprint">
+StarRating(".my-rating-11", {
+  totalStars: 5,
+  valueMultiplier: 2,
+  initialRating: 7,
+  disableAfterRate: false,
+  onHover: function(currentIndex, currentRating, el){
+    document.querySelector('.live-rating-scale').textContent = currentIndex;
+  },
+  onLeave: function(currentIndex, currentRating, el){
+    document.querySelector('.live-rating-scale').textContent = currentRating;
+  }
+});
+</pre>
+
+<hr>
+
 <div class="options">
     See options @ <a href="https://github.com/avego/star-rating-svg/">github</a>
 </div>
@@ -300,6 +329,20 @@ document.addEventListener('DOMContentLoaded', function() {
     strokeColor: 'black',
     ratedColors: ['#e2c181', '#ffa700', '#c4573e', '#9a321a', '#5e1e0f']
   });
+
+  var rating11 = StarRating(".my-rating-11", {
+    totalStars: 5,
+    valueMultiplier: 2,
+    initialRating: 7,
+    disableAfterRate: false,
+    onHover: function(currentIndex, currentRating, el){
+      document.querySelector('.live-rating-scale').textContent = currentIndex;
+    },
+    onLeave: function(currentIndex, currentRating, el){
+      document.querySelector('.live-rating-scale').textContent = currentRating;
+    }
+  });
+  document.querySelector('.live-rating-scale').textContent = rating11.getRating();
 
 });
 </script>
