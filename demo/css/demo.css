@@ -30,6 +30,12 @@ iframe {
     color: lightgray;
 }
 
+.info-sub {
+    font-size: 13px;
+    color: #666;
+    margin: 4px 0 8px 0;
+}
+
 .content {
     width: 640px;
 }

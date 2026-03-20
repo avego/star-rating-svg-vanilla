@@ -23,6 +23,7 @@
 * Resize stars
 * **Change rated star colors by level**
 * **Scale rating range** (e.g. 5 stars → 0..10 via valueMultiplier)
+* **Data attributes** — initialize via data-* attributes (works with JS options)
 
 ## demo
 
@@ -109,6 +110,53 @@ StarRating(".my-rating", {
 
 Note: With `useFullStars: true`, half-stars are disabled; with `valueMultiplier: 2` you get only even values (2, 4, 6, 8, 10).
 
+## Initialization via data attributes
+
+Options can be set via data attributes. Merge order: `defaults ← data attributes ← JS options` (JS always overrides).
+
+| data-attribute | option | type |
+|----------------|--------|------|
+| data-total-stars | totalStars | number |
+| data-value-multiplier | valueMultiplier | number |
+| data-initial-rating, data-rating | initialRating | number |
+| data-disable-after-rate | disableAfterRate | boolean |
+| data-read-only | readOnly | boolean |
+| data-use-full-stars | useFullStars | boolean |
+| data-star-size | starSize | number |
+| data-min-rating | minRating | number |
+| data-star-shape | starShape | string |
+| data-stroke-width | strokeWidth | number |
+| data-stroke-color | strokeColor | string |
+| data-empty-color | emptyColor | string |
+| data-hover-color | hoverColor | string |
+| data-active-color | activeColor | string |
+| data-rated-color | ratedColor | string |
+| data-use-gradient | useGradient | boolean |
+| data-force-round-up | forceRoundUp | boolean |
+
+Boolean: `"true"`, `"1"` → true; otherwise false.
+
+```html
+<span class="star-rating" 
+  data-total-stars="5" 
+  data-value-multiplier="2" 
+  data-initial-rating="7" 
+  data-disable-after-rate="false">
+</span>
+```
+
+```javascript
+// Only data attributes
+StarRating(".star-rating");
+
+// Mixed: data for config, JS for callbacks
+StarRating(".star-rating", {
+  callback: function(rating, el) { console.log(rating); }
+});
+```
+
+`callback`, `onHover`, `onLeave` and complex options (`starGradient`, `ratedColors`) must be set in JS.
+
 ## Methods
 
 | method | arguments | description  |
@@ -188,6 +236,11 @@ Minified version
 #### [dist/](https://github.com/avego/star-rating-svg/tree/master/dist "build files")
 
 ### Changelog
+
+#### 2.2.0
+- Add data attributes initialization: totalStars, valueMultiplier, initialRating, disableAfterRate, readOnly, and more
+- Merge order: defaults ← data attributes ← JS options (backward compatible)
+- Multiple ratings on one page, each with its own data config
 
 #### 2.1.0
 - Add `valueMultiplier` option: scale rating range (e.g. 5 stars → 0..10, half-star = step 1)

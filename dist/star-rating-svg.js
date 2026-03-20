@@ -44,15 +44,65 @@
 
   var instances = new WeakMap();
 
+  var DATA_ATTR_MAP = {
+    totalStars: 'number',
+    valueMultiplier: 'number',
+    initialRating: 'number',
+    disableAfterRate: 'boolean',
+    readOnly: 'boolean',
+    useFullStars: 'boolean',
+    starSize: 'number',
+    minRating: 'number',
+    starShape: 'string',
+    strokeWidth: 'number',
+    strokeColor: 'string',
+    emptyColor: 'string',
+    hoverColor: 'string',
+    activeColor: 'string',
+    ratedColor: 'string',
+    useGradient: 'boolean',
+    forceRoundUp: 'boolean'
+  };
+
+  function parseDataValue(value, type) {
+    if (value === undefined || value === null || value === '') return undefined;
+    if (type === 'number') {
+      var n = parseFloat(value);
+      return isNaN(n) ? undefined : n;
+    }
+    if (type === 'boolean') {
+      return value === 'true' || value === '1';
+    }
+    return String(value);
+  }
+
+  function getDataAttributes(element) {
+    var ds = element.dataset || {};
+    var opts = {};
+    var key;
+
+    for (key in DATA_ATTR_MAP) {
+      var val = ds[key];
+      if (val !== undefined) {
+        opts[key] = parseDataValue(val, DATA_ATTR_MAP[key]);
+      }
+    }
+    if (ds.rating !== undefined && opts.initialRating === undefined) {
+      opts.initialRating = parseDataValue(ds.rating, 'number');
+    }
+
+    return opts;
+  }
+
   function StarRatingPlugin(element, options) {
     var _rating;
     var newRating;
     var roundFn;
 
     this.element = element;
-    this.settings = Object.assign({}, defaults, options);
+    this.settings = Object.assign({}, defaults, getDataAttributes(element), options || {});
 
-    _rating = element.getAttribute('data-rating') || element.dataset.rating || this.settings.initialRating;
+    _rating = this.settings.initialRating;
     _rating = parseFloat(_rating) || 0;
 
     var mult = this.settings.valueMultiplier;

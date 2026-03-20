@@ -13,8 +13,9 @@
 	<img src="img/star-rating-svg-logo.png" alt="star-rating-svg-logo" />
 </div>
 <h4>star-rating-svg.js</h4>
-<div class="info"><a href="https://github.com/avego/star-rating-svg/">Github</a>&nbsp;/&nbsp;v.2.1.0
-<iframe src="https://ghbtns.com/github-btn.html?user=nashio&repo=star-rating-svg&type=star&count=true&size=medium" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+<p class="info-sub">Native JavaScript, no dependencies. Data attributes init, rating scale (e.g. 0..10).</p>
+<div class="info"><a href="https://github.com/avego/star-rating-svg/">Github</a>&nbsp;/&nbsp;v.2.2.0
+<iframe src="https://ghbtns.com/github-btn.html?user=avego&repo=star-rating-svg&type=star&count=true&size=medium" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
 </div>
 
 <h2>examples</h2>
@@ -236,6 +237,93 @@ StarRating(".my-rating-11", {
 
 <hr>
 
+<h4>Data attributes: only markup</h4>
+<p>All options from data attributes, no JS options.</p>
+<span class="demo-data-only" data-total-stars="5" data-value-multiplier="2" data-initial-rating="7" data-disable-after-rate="false" data-star-size="35"></span>
+
+<pre class="pre-show prettyprint">
+&lt;span class="demo-data-only" 
+  data-total-stars="5" 
+  data-value-multiplier="2" 
+  data-initial-rating="7" 
+  data-disable-after-rate="false" 
+  data-star-size="35"&gt;&lt;/span&gt;
+</pre>
+<pre class="pre-show prettyprint">
+StarRating(".demo-data-only");
+</pre>
+
+<hr>
+
+<h4>Data attributes: mixed (data + JS callbacks)</h4>
+<p>Config from data, callbacks from JS.</p>
+<span class="demo-mixed" data-total-stars="5" data-initial-rating="3"></span>
+<span class="live-rating live-rating-mixed">3</span>
+
+<pre class="pre-show prettyprint">
+&lt;span class="demo-mixed" data-total-stars="5" data-initial-rating="3"&gt;&lt;/span&gt;
+</pre>
+<pre class="pre-show prettyprint">
+StarRating(".demo-mixed", {
+  disableAfterRate: false,
+  onHover: function(i, r, el){ document.querySelector('.live-rating-mixed').textContent = i; },
+  onLeave: function(i, r, el){ document.querySelector('.live-rating-mixed').textContent = r; }
+});
+</pre>
+
+<hr>
+
+<h4>Data attributes: JS overrides data</h4>
+<p>Element has data-initial-rating="5", JS passes initialRating: 2.</p>
+<span class="demo-override" data-initial-rating="5" data-total-stars="5"></span>
+
+<pre class="pre-show prettyprint">
+StarRating(".demo-override", { initialRating: 2 });
+</pre>
+
+<hr>
+
+<h4>Multiple ratings: different data each</h4>
+<p>Three ratings: 0..10, 0..5, readOnly.</p>
+<div>
+  <div><span class="demo-multi" data-total-stars="5" data-value-multiplier="2" data-initial-rating="6" data-star-size="30"></span></div>
+  <div><span class="demo-multi" data-total-stars="5" data-initial-rating="3" data-star-size="30"></span></div>
+  <div><span class="demo-multi" data-total-stars="5" data-initial-rating="4" data-read-only="true" data-star-size="30"></span></div>
+</div>
+
+<pre class="pre-show prettyprint">
+StarRating(".demo-multi");
+</pre>
+
+<hr>
+
+<h4>Multiple ratings: same data</h4>
+<p>Two elements with identical data attributes.</p>
+<div>
+  <div><span class="demo-same" data-total-stars="5" data-initial-rating="4" data-star-size="28"></span></div>
+  <div><span class="demo-same" data-total-stars="5" data-initial-rating="4" data-star-size="28"></span></div>
+</div>
+
+<pre class="pre-show prettyprint">
+StarRating(".demo-same");
+</pre>
+
+<hr>
+
+<h4>Mixed init: data vs JS on same page</h4>
+<p>First via data, second via JS only.</p>
+<div>
+  <div><span class="demo-data-vs-js" data-total-stars="5" data-initial-rating="3" data-star-size="28"></span></div>
+  <div><span class="demo-js-only"></span></div>
+</div>
+
+<pre class="pre-show prettyprint">
+StarRating(".demo-data-vs-js");
+StarRating(".demo-js-only", { totalStars: 5, initialRating: 4, starSize: 28 });
+</pre>
+
+<hr>
+
 <div class="options">
     See options @ <a href="https://github.com/avego/star-rating-svg/">github</a>
 </div>
@@ -343,6 +431,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   document.querySelector('.live-rating-scale').textContent = rating11.getRating();
+
+  StarRating(".demo-data-only");
+
+  var mixedRating = StarRating(".demo-mixed", {
+    disableAfterRate: false,
+    onHover: function(i, r, el){ document.querySelector('.live-rating-mixed').textContent = i; },
+    onLeave: function(i, r, el){ document.querySelector('.live-rating-mixed').textContent = r; }
+  });
+  document.querySelector('.live-rating-mixed').textContent = mixedRating.getRating();
+
+  StarRating(".demo-override", { initialRating: 2 });
+
+  StarRating(".demo-multi");
+
+  StarRating(".demo-same");
+
+  StarRating(".demo-data-vs-js");
+  StarRating(".demo-js-only", { totalStars: 5, initialRating: 4, starSize: 28 });
 
 });
 </script>
