@@ -1,5 +1,5 @@
 
-![](https://github.com/avego/star-rating-svg/raw/master/demo/img/star-rating-svg-logo.png)
+![](https://github.com/avego/star-rating-svg-vanilla/raw/master/demo/img/star-rating-svg-logo.png)
 
 ###### A basic, yet flexible star rating plugin using SVG (native JavaScript, no dependencies).
 
@@ -28,7 +28,7 @@
 ## demo
 
 For a working **demo**, open `demo/index.html` from the repository or see:
-[https://github.com/avego/star-rating-svg](https://github.com/avego/star-rating-svg)
+[https://avego.github.io/star-rating-svg-vanilla/demo/](https://avego.github.io/star-rating-svg-vanilla/demo/) | [GitHub](https://github.com/avego/star-rating-svg-vanilla)
 
 ## Usage
 
@@ -225,15 +225,15 @@ StarRating('your-selector', {
 
 Code example
 
-#### [demo/index.html/](https://github.com/avego/star-rating-svg/blob/main/demo/index.html "code examples")
+#### [demo/index.html/](https://github.com/avego/star-rating-svg-vanilla/blob/main/demo/index.html "code examples")
 
 Source file
 
-#### [src/](https://github.com/avego/star-rating-svg/tree/main/src "source file")
+#### [src/](https://github.com/avego/star-rating-svg-vanilla/tree/main/src "source file")
 
 Minified version
 
-#### [dist/](https://github.com/avego/star-rating-svg/tree/main/dist "build files")
+#### [dist/](https://github.com/avego/star-rating-svg-vanilla/tree/main/dist "build files")
 
 ### Changelog
 

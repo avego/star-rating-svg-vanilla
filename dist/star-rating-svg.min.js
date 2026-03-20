@@ -1,7 +1,7 @@
 /*
  *  StarRatingSvg - Native JavaScript
  *
- *  https://github.com/avego/star-rating-svg
+ *  https://github.com/avego/star-rating-svg-vanilla
  *  Copyright (c) Alexander Tishov
  *  Website: https://avego.org
  *  E-mail: info@avego.org
