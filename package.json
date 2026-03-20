@@ -1,0 +1,34 @@
+{
+  "name": "star-rating-svg",
+  "version": "2.0.0",
+  "description": "A star rating plugin based on svg (native JavaScript)",
+  "keywords": [
+    "star",
+    "rating",
+    "star rating",
+    "svg",
+    "vanilla"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avego/star-rating-svg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/avego/star-rating-svg/issues"
+  },
+  "author": {
+    "name": "Alexander Tishov",
+    "url": "https://avego.org",
+    "email": "info@avego.org"
+  },
+  "homepage": "https://github.com/avego/star-rating-svg",
+  "license": "MIT",
+  "main": "dist/star-rating-svg.js",
+  "devDependencies": {
+    "terser": "^5.36.0"
+  },
+  "scripts": {
+    "build": "node build.js && terser src/star-rating-svg.js -o dist/star-rating-svg.min.js --comments \"first\"",
+    "test": "npm run build"
+  }
+}
