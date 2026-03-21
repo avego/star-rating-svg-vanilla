@@ -255,6 +255,10 @@ Minified version
 
 ### Changelog
 
+#### 2.3.1
+- package.json: improved keywords, description, and discoverability for npm
+- Add `files` field for leaner publish; add `exports` for bundlers; homepage points to live demo
+
 #### 2.3.0
 - Add `ratingLabels` option: native tooltips on hover for each half-star (uses SVG `<title>` element)
 - Works with `valueMultiplier` (e.g. labels for 1..10 scale) and `useFullStars`

@@ -1,13 +1,26 @@
 {
   "name": "star-rating-svg-vanilla",
-  "version": "2.3.0",
-  "description": "A star rating plugin based on svg (native JavaScript)",
+  "version": "2.3.1",
+  "description": "Lightweight, customizable SVG star rating component in pure vanilla JavaScript. Zero dependencies, high performance, and easy to integrate.",
   "keywords": [
-    "star",
-    "rating",
+    "star-rating",
     "star rating",
-    "svg",
-    "vanilla"
+    "starrating",
+    "svg-rating",
+    "rating-component",
+    "rating component",
+    "vanilla-js",
+    "vanilla js",
+    "vanillajs",
+    "pure-javascript",
+    "zero-dependencies",
+    "ui-component",
+    "review",
+    "feedback",
+    "stars",
+    "javascript",
+    "half-star",
+    "no-framework"
   ],
   "repository": {
     "type": "git",
@@ -21,9 +34,19 @@
     "url": "https://avego.org",
     "email": "info@avego.org"
   },
-  "homepage": "https://github.com/avego/star-rating-svg-vanilla",
+  "homepage": "https://avego.github.io/star-rating-svg-vanilla/demo/",
   "license": "MIT",
   "main": "dist/star-rating-svg.js",
+  "files": [
+    "dist",
+    "src/css",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./dist/star-rating-svg.js",
+    "./css": "./src/css/star-rating-svg.css"
+  },
   "devDependencies": {
     "terser": "^5.36.0"
   },
